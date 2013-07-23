@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import os
 import re
 import posixpath
 import subprocess
@@ -17,7 +18,12 @@ def cleanup_output(out):
 
 def system_call(args, working_dir=settings.STATIC_ROOT, print_output=False, print_errors=False):
 
-    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=working_dir)
+    if os.name == 'nt':
+        shell = True
+    else:
+        shell = False
+
+    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=working_dir, shell=shell)
     output, errors = p.communicate()
     output_clean = cleanup_output(output)
     errors_clean = cleanup_output(errors)
