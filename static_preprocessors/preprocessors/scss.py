@@ -22,10 +22,13 @@ class ScssPreprocessor(AbstractPreprocessor):
         if not STATIC_PP_AUTO_BUILD:
             return new_url
 
-        self._init_paths_cache()
-
         input_path = finders.find(source_url)
+        if not input_path:
+            return source_url
+
         output_path = os.path.join(settings.STATIC_ROOT, base_path) + '.css'
+
+        self._init_paths_cache()
 
         compile_scss = [STATIC_PP_SCSS_EXECUTABLE, '--compass']
         if STATIC_PP_SCSS_DEBUG_INFO:
