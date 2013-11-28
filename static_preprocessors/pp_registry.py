@@ -53,4 +53,15 @@ class PreprocessorRegistry(object):
             return model_or_instance
 
 
-pp_registry = PreprocessorRegistry()
+_pp_registry = None
+
+def get_pp_registry():
+    global _pp_registry
+
+    if _pp_registry is None:
+        _pp_registry = PreprocessorRegistry()
+        
+        from .preprocessors.scss import ScssPreprocessor
+        _pp_registry.register(ScssPreprocessor)
+
+    return _pp_registry

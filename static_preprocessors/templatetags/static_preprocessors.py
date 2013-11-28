@@ -1,6 +1,6 @@
 from django import template
 from django.templatetags.static import static as original_static
-from ..pp_registry import pp_registry
+from ..pp_registry import get_pp_registry
 
 
 register = template.Library()
@@ -23,5 +23,5 @@ def static(path):
 
     """
 
-    new_path = pp_registry.process_path(path)
+    new_path = get_pp_registry().process_path(path)
     return original_static(new_path)

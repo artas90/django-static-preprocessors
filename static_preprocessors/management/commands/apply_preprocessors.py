@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from ...pp_registry import pp_registry
+from ...pp_registry import get_pp_registry
 
 
 class Command(BaseCommand):
@@ -11,4 +11,4 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
-        pp_registry.post_collect_static()
+        get_pp_registry().post_collect_static()
